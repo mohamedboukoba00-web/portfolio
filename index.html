@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohamed Boukoba · Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',sans-serif;background:#f4f7fc;color:#1e293b;line-height:1.6}
+        a{text-decoration:none;color:inherit}
+        img{max-width:100%;display:block}
+        .container{max-width:1100px;margin:0 auto;padding:0 24px}
+        :root{--primary:#0a2a4a;--primary-light:#1a4a7a;--accent:#f5c518;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-500:#64748b;--gray-700:#334155;--white:#fff;--shadow:0 4px 20px rgba(0,0,0,0.08);--radius:16px}
+        .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,42,74,0.95);backdrop-filter:blur(10px);padding:12px 0}
+        .navbar .container{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-weight:700;font-size:1.3rem;color:var(--white);letter-spacing:-0.5px}
+        .logo span{color:var(--accent)}
+        .nav-links{list-style:none;display:flex;gap:18px;flex-wrap:wrap}
+        .nav-links a{color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:500;transition:color .3s;white-space:nowrap}
+        .nav-links a:hover{color:var(--accent)}
+        .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
+        .hero{padding:140px 0 80px;background:linear-gradient(135deg,#0a2a4a 0%,#1a4a7a 100%);color:#fff;text-align:center}
+        .hero-content{display:flex;flex-direction:column;align-items:center;gap:24px}
+        .hero-img{width:160px;height:160px;border-radius:50%;object-fit:cover;border:5px solid var(--accent);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+        .hero h1{font-size:2.8rem;font-weight:800;letter-spacing:-1px}
+        .hero h1 span{color:var(--accent)}
+        .hero .subtitle{font-size:1.15rem;color:rgba(255,255,255,0.8);font-weight:400;max-width:600px}
+        .hero .btn-cv{display:inline-block;padding:14px 36px;background:var(--accent);color:var(--primary);font-weight:700;border-radius:50px;font-size:.95rem;transition:all .3s;border:none;cursor:pointer}
+        .hero .btn-cv:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(245,197,24,0.4)}
+        section{padding:72px 0}
+        .section-title{font-size:2rem;font-weight:700;color:var(--primary);margin-bottom:48px;text-align:center;letter-spacing:-0.5px}
+        .section-title::after{content:'';display:block;width:60px;height:4px;background:var(--accent);margin:12px auto 0;border-radius:4px}
+        .section-alt{background:var(--white)}
+        .section-gray{background:#f1f5f9}
+        .sobre-mi-texto{max-width:780px;margin:0 auto;font-size:1.05rem;color:var(--gray-700);text-align:center;line-height:1.8}
+        .timeline{position:relative;padding-left:40px;max-width:800px;margin:0 auto}
+        .timeline::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:3px;background:var(--gray-300);border-radius:4px}
+        .timeline-item{position:relative;margin-bottom:36px}
+        .timeline-item:last-child{margin-bottom:0}
+        .timeline-icon{position:absolute;left:-28px;top:4px;width:36px;height:36px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;z-index:2;border:3px solid var(--white)}
+        .timeline-card{background:var(--white);padding:20px 24px;border-radius:var(--radius);box-shadow:var(--shadow);border-left:4px solid var(--accent)}
+        .timeline-card h3{font-size:1.1rem;color:var(--primary);font-weight:700}
+        .timeline-card .meta{font-size:.85rem;color:var(--gray-500);margin:4px 0 10px;display:flex;gap:12px;flex-wrap:wrap}
+        .timeline-card .meta i{margin-right:4px}
+        .timeline-card p{font-size:.95rem;color:var(--gray-700)}
+        .section-gray .timeline-card{background:#f8fafc}
+        .proyectos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+        .proyecto-card{background:var(--white);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;text-align:center}
+        .proyecto-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.12)}
+        .proyecto-card i{font-size:2.5rem;color:var(--primary-light);margin-bottom:16px}
+        .proyecto-card h3{font-size:1.1rem;color:var(--primary);margin-bottom:8px}
+        .proyecto-card p{font-size:.9rem;color:var(--gray-500)}
+        .galeria-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+        .galeria-item{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer}
+        .galeria-item img{width:100%;height:220px;object-fit:cover;transition:transform .5s ease}
+        .galeria-item:hover img{transform:scale(1.08)}
+        .galeria-item .overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,42,74,0.85));padding:40px 16px 14px;color:#fff;font-size:.85rem;font-weight:500;opacity:0;transition:opacity .4s}
+        .galeria-item:hover .overlay{opacity:1}
+        .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:800px;margin:0 auto}
+        .skill-item{background:var(--white);padding:18px 20px;border-radius:12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;transition:transform .3s}
+        .skill-item:hover{transform:translateY(-2px)}
+        .skill-item i{font-size:1.6rem;color:var(--primary-light);width:36px;text-align:center}
+        .skill-item .skill-info{flex:1}
+        .skill-item .skill-info strong{display:block;font-size:.95rem;color:var(--primary)}
+        .skill-bar{height:6px;background:var(--gray-200);border-radius:6px;margin-top:6px;overflow:hidden}
+        .skill-bar span{display:block;height:100%;background:var(--accent);border-radius:6px}
+        .idiomas-herramientas{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:800px;margin:0 auto}
+        .idiomas-list,.herramientas-list{display:flex;flex-direction:column;gap:16px}
+        .idioma-item,.herramienta-item{display:flex;align-items:center;gap:14px;background:var(--white);padding:14px 18px;border-radius:12px;box-shadow:var(--shadow)}
+        .idioma-item i,.herramienta-item i{font-size:1.3rem;color:var(--primary-light);width:28px;text-align:center}
+        .idioma-item .nivel{margin-left:auto;font-size:.75rem;font-weight:600;color:var(--gray-500);background:var(--gray-200);padding:2px 12px;border-radius:20px}
+        .texto-reflexion{max-width:780px;margin:0 auto;font-size:1.05rem;color:var(--gray-700);text-align:center;line-height:1.8}
+        .texto-reflexion i{color:var(--accent);font-size:2rem;display:block;margin-bottom:20px}
+        .pasatiempos{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:20px}
+        .pasatiempos span{background:var(--white);padding:10px 22px;border-radius:50px;box-shadow:var(--shadow);font-size:.9rem;font-weight:500;color:var(--primary);display:flex;align-items:center;gap:8px}
+        .pasatiempos span i{color:var(--accent)}
+        footer{background:var(--primary);color:rgba(255,255,255,0.7);text-align:center;padding:32px 0}
+        footer .socials{display:flex;justify-content:center;gap:18px;margin-bottom:12px}
+        footer .socials a{color:#fff;font-size:1.3rem;transition:color .3s}
+        footer .socials a:hover{color:var(--accent)}
+        footer p{font-size:.85rem}
+        @media(max-width:768px){
+            .hero h1{font-size:2rem}
+            .navbar .nav-links{display:none}
+            .menu-toggle{display:block}
+            .navbar .nav-links.open{display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--primary);padding:20px 24px;gap:12px}
+            .idiomas-herramientas{grid-template-columns:1fr}
+            .timeline{padding-left:32px}
+            .timeline-icon{left:-22px;width:30px;height:30px;font-size:.8rem}
+            .galeria-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+        }
+        @media(max-width:480px){
+            .hero h1{font-size:1.6rem}
+            .section-title{font-size:1.5rem}
+            .hero-img{width:130px;height:130px}
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Mohamed <span>Boukoba</span></div>
+            <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#sobre-mi">Sobre mí</a></li>
+                <li><a href="#curriculum">CV</a></li>
+                <li><a href="#formacion">Formación</a></li>
+                <li><a href="#experiencia">Experiencia</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#idiomas">Idiomas</a></li>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#reflexion">Reflexión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="inicio">
+        <div class="container hero-content">
+            <img src="imag/trabajoEmp.PNG" alt="Mohamed Boukoba" class="hero-img" />
+            <h1>Mohamed <span>Boukoba</span></h1>
+            <p class="subtitle">Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM). Apasionado por la informática, el desarrollo web y la tecnología.</p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;font-size:.9rem;color:rgba(255,255,255,0.7);">
+                <span><i class="fas fa-phone" style="margin-right:6px;color:var(--accent);"></i>634 266 079</span>
+                <span><i class="fas fa-envelope" style="margin-right:6px;color:var(--accent);"></i>mohamedboukoba00@gmail.com</span>
+                <span><i class="fas fa-map-marker-alt" style="margin-right:6px;color:var(--accent);"></i>Parla, Madrid</span>
+            </div>
+            <a href="#curriculum" class="btn-cv"><i class="fas fa-file-alt" style="margin-right:8px;"></i>Ver Currículum</a>
+        </div>
+    </header>
+
+    <section id="sobre-mi">
+        <div class="container">
+            <h2 class="section-title">Sobre mí</h2>
+            <div class="sobre-mi-texto">
+                <p><strong>Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</strong> con experiencia en desarrollo web, gestión empresarial y atención al cliente. Manejo <strong>Java, MySQL, Spring Boot, PHP y Laravel</strong>. Profesional motivado, resolutivo y con capacidad de adaptación a entornos dinámicos.</p>
+                <p style="margin-top:16px;">Experiencia en desarrollo de aplicaciones web dinámicas, supervisión de operaciones y trabajo en equipo. Combino formación técnica sólida con habilidades de liderazgo y gestión adquiridas en Marruecos y España. Busco seguir creciendo y aportar valor en el sector tecnológico.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="curriculum" class="section-alt">
+        <div class="container">
+            <h2 class="section-title">Currículum Vitae</h2>
+            <div style="max-width:800px;margin:0 auto;text-align:center;">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:28px;">
+                    <div style="background:var(--primary);color:#fff;padding:20px;border-radius:var(--radius);">
+                        <i class="fas fa-graduation-cap" style="font-size:2rem;color:var(--accent);margin-bottom:8px;"></i>
+                        <div style="font-weight:700;font-size:1.1rem;">Técnico Superior DAM</div>
+                        <div style="font-size:.8rem;opacity:.8;">Prometeo · 2026</div>
+                    </div>
+                    <div style="background:var(--primary);color:#fff;padding:20px;border-radius:var(--radius);">
+                        <i class="fas fa-briefcase" style="font-size:2rem;color:var(--accent);margin-bottom:8px;"></i>
+                        <div style="font-weight:700;font-size:1.1rem;">4 Exp.</div>
+                        <div style="font-size:.8rem;opacity:.8;">Consultoría · Hostelería</div>
+                    </div>
+                    <div style="background:var(--primary);color:#fff;padding:20px;border-radius:var(--radius);">
+                        <i class="fas fa-code" style="font-size:2rem;color:var(--accent);margin-bottom:8px;"></i>
+                        <div style="font-weight:700;font-size:1.1rem;">7 Skills</div>
+                        <div style="font-size:.8rem;opacity:.8;">Java · PHP · Laravel</div>
+                    </div>
+                    <div style="background:var(--primary);color:#fff;padding:20px;border-radius:var(--radius);">
+                        <i class="fas fa-language" style="font-size:2rem;color:var(--accent);margin-bottom:8px;"></i>
+                        <div style="font-weight:700;font-size:1.1rem;">3 Idiomas</div>
+                        <div style="font-size:.8rem;opacity:.8;">Español · Inglés · Francés</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="formacion" class="section-gray">
+        <div class="container">
+            <h2 class="section-title">Formación Académica</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="timeline-card">
+                        <h3>FP DAM Técnico Superior en Desarrollo de Aplicaciones Multiplataforma</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 2026 &nbsp;|&nbsp; <i class="fas fa-university"></i> Prometeo by ThePower</div>
+                        <p>Titulación en programación, bases de datos, desarrollo web y diseño de aplicaciones multiplataforma.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-flask"></i></div>
+                    <div class="timeline-card">
+                        <h3>DEUG en Matemáticas y Ciencias de la Computación</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 2023 &nbsp;|&nbsp; <i class="fas fa-university"></i> Abdelmalek Essaâdi University</div>
+                        <p>Formación universitaria en matemáticas y fundamentos de la computación.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-calculator"></i></div>
+                    <div class="timeline-card">
+                        <h3>Licenciatura en Estudios Básicos de Matemáticas y Ciencias de la Computación</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 2025 &nbsp;|&nbsp; <i class="fas fa-university"></i> Abdelmalek Essaâdi University</div>
+                        <p>Proyecto final: Developing a restaurant management system.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-school"></i></div>
+                    <div class="timeline-card">
+                        <h3>Bachillerato en Ciencias Físicas</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 2018 &nbsp;|&nbsp; <i class="fas fa-university"></i> Instituto Bir Anzaran</div>
+                        <p>Titulación en ciencias físicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia">
+        <div class="container">
+            <h2 class="section-title">Experiencia Profesional</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-laptop"></i></div>
+                    <div class="timeline-card">
+                        <h3>Intern</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 4 meses, 2024 &nbsp;|&nbsp; <i class="fas fa-building"></i> ML VIEW Consulting · Tánger, Marruecos</div>
+                        <p>Desarrollo de aplicaciones web dinámicas usando Laravel, PHP, HTML, CSS y Bootstrap. Creación de soluciones enfocadas en la experiencia del usuario.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-store"></i></div>
+                    <div class="timeline-card">
+                        <h3>Manager</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 2021 – 2024 &nbsp;|&nbsp; <i class="fas fa-building"></i> Café Restaurant · Tánger, Marruecos</div>
+                        <p>Supervisión de operaciones diarias y gestión de personal. Mejora de la satisfacción del cliente y eficiencia operativa.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-birthday-cake"></i></div>
+                    <div class="timeline-card">
+                        <h3>Manager</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 2019 – 2020 &nbsp;|&nbsp; <i class="fas fa-building"></i> Pastelería · Tánger, Marruecos</div>
+                        <p>Gestión del negocio y atención al cliente. Desarrollo de estrategias de promoción para aumentar ventas.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-hamburger"></i></div>
+                    <div class="timeline-card">
+                        <h3>Crew Member</h3>
+                        <div class="meta"><i class="fas fa-calendar"></i> 6 meses, 2018 &nbsp;|&nbsp; <i class="fas fa-building"></i> McDonald's · Tánger, Marruecos</div>
+                        <p>Servicio al cliente en un entorno rápido y colaborativo. Trabajo en equipo y eficiencia en la entrega del servicio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="section-gray">
+        <div class="container">
+            <h2 class="section-title">Proyectos Realizados</h2>
+            <div class="proyectos-grid" style="margin-bottom:48px;">
+                <div class="proyecto-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Restaurant Management System</h3>
+                    <p>Proyecto final de licenciatura: sistema de gestión para restaurantes con funcionalidades de pedidos, inventario y facturación.</p>
+                </div>
+                <div class="proyecto-card">
+                    <i class="fab fa-laravel"></i>
+                    <h3>Web App con Laravel</h3>
+                    <p>Aplicación web dinámica desarrollada durante mi internship en ML VIEW Consulting usando Laravel, PHP, HTML, CSS y Bootstrap.</p>
+                </div>
+                <div class="proyecto-card">
+                    <i class="fab fa-java"></i>
+                    <h3>Proyectos Java / Spring Boot</h3>
+                    <p>Desarrollo de aplicaciones backend con Java, Spring Boot y MySQL.</p>
+                </div>
+                <div class="proyecto-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Portfolio Personal</h3>
+                    <p>Este mismo portfolio, desarrollado en HTML5, CSS3 con diseño responsive y buenas prácticas UX.</p>
+                </div>
+            </div>
+
+            <h3 style="text-align:center;font-size:1.5rem;color:var(--primary);margin-bottom:32px;">
+                <i class="fas fa-running" style="color:var(--accent);margin-right:8px;"></i>
+                Trabajos Deportivos
+            </h3>
+            <div class="galeria-grid">
+                <div class="galeria-item">
+                    <img src="imag/salida1.jpeg" alt="Salida deportiva" loading="lazy" />
+                    <div class="overlay">🏃‍♂️ Salida deportiva</div>
+                </div>
+                <div class="galeria-item">
+                    <img src="imag/sport.jpeg" alt="Entrenamiento" loading="lazy" />
+                    <div class="overlay">⚽ Entrenamiento</div>
+                </div>
+                <div class="galeria-item">
+                    <img src="imag/sport1.jpeg" alt="Competición" loading="lazy" />
+                    <div class="overlay">🏆 Competición</div>
+                </div>
+                <div class="galeria-item">
+                    <img src="imag/trabajoR.jpeg" alt="Trabajo deportivo" loading="lazy" />
+                    <div class="overlay">💪 Trabajo físico</div>
+                </div>
+                <div class="galeria-item">
+                    <img src="imag/trabajoRe.jpeg" alt="Trabajo en equipo" loading="lazy" />
+                    <div class="overlay">🤝 Trabajo en equipo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="habilidades">
+        <div class="container">
+            <h2 class="section-title">Habilidades</h2>
+            <div class="skills-grid">
+                <div class="skill-item"><i class="fab fa-java"></i><div class="skill-info"><strong>Java</strong><div class="skill-bar"><span style="width:70%"></span></div></div></div>
+                <div class="skill-item"><i class="fas fa-database"></i><div class="skill-info"><strong>MySQL</strong><div class="skill-bar"><span style="width:70%"></span></div></div></div>
+                <div class="skill-item"><i class="fab fa-html5"></i><div class="skill-info"><strong>HTML / CSS</strong><div class="skill-bar"><span style="width:80%"></span></div></div></div>
+                <div class="skill-item"><i class="fab fa-php"></i><div class="skill-info"><strong>PHP</strong><div class="skill-bar"><span style="width:65%"></span></div></div></div>
+                <div class="skill-item"><i class="fab fa-laravel"></i><div class="skill-info"><strong>Laravel</strong><div class="skill-bar"><span style="width:60%"></span></div></div></div>
+                <div class="skill-item"><i class="fas fa-leaf"></i><div class="skill-info"><strong>Spring Boot</strong><div class="skill-bar"><span style="width:50%"></span></div></div></div>
+                <div class="skill-item"><i class="fab fa-bootstrap"></i><div class="skill-info"><strong>Bootstrap</strong><div class="skill-bar"><span style="width:65%"></span></div></div></div>
+                <div class="skill-item"><i class="fas fa-users"></i><div class="skill-info"><strong>Trabajo en equipo</strong><div class="skill-bar"><span style="width:90%"></span></div></div></div>
+                <div class="skill-item"><i class="fas fa-chart-line"></i><div class="skill-info"><strong>Gestión de negocio</strong><div class="skill-bar"><span style="width:85%"></span></div></div></div>
+                <div class="skill-item"><i class="fas fa-headset"></i><div class="skill-info"><strong>Atención al cliente</strong><div class="skill-bar"><span style="width:90%"></span></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="idiomas" class="section-alt">
+        <div class="container">
+            <h2 class="section-title">Idiomas</h2>
+            <div class="idiomas-herramientas">
+                <div>
+                    <h3 style="font-size:1.1rem;color:var(--primary);margin-bottom:16px;">
+                        <i class="fas fa-language" style="color:var(--accent);margin-right:8px;"></i>Idiomas
+                    </h3>
+                    <div class="idiomas-list">
+                        <div class="idioma-item"><i class="fas fa-flag-es"></i><span>Español</span><span class="nivel">A2</span></div>
+                        <div class="idioma-item"><i class="fas fa-flag-uk"></i><span>Inglés</span><span class="nivel">B1</span></div>
+                        <div class="idioma-item"><i class="fas fa-flag-fr"></i><span>Francés</span><span class="nivel">Básico / Conversacional</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-size:1.1rem;color:var(--primary);margin-bottom:16px;">
+                        <i class="fas fa-heart" style="color:var(--accent);margin-right:8px;"></i>Pasatiempos
+                    </h3>
+                    <div class="pasatiempos">
+                        <span><i class="fas fa-book"></i>Lectura</span>
+                        <span><i class="fas fa-microchip"></i>Tecnología</span>
+                        <span><i class="fas fa-running"></i>Deportes</span>
+                        <span><i class="fas fa-music"></i>Música</span>
+                        <span><i class="fas fa-plane"></i>Viajar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="objetivos" class="section-gray">
+        <div class="container">
+            <h2 class="section-title">Objetivos Profesionales</h2>
+            <div class="texto-reflexion">
+                <p>Mi objetivo es <strong>seguir creciendo profesionalmente como desarrollador</strong> aplicando mis conocimientos en <strong>Java, MySQL, Spring Boot y desarrollo web</strong>. Busco un entorno donde pueda aportar valor, asumir nuevos retos y seguir especializándome en backend y desarrollo de aplicaciones.</p>
+                <p style="margin-top:16px;">Aspiro a contribuir en proyectos innovadores donde pueda combinar mi formación técnica con mi experiencia en gestión, liderazgo y atención al cliente.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="reflexion">
+        <div class="container">
+            <h2 class="section-title">Reflexión Personal Final</h2>
+            <div class="texto-reflexion">
+                <i class="fas fa-quote-right"></i>
+                <p>«Mi trayectoria combina una sólida formación técnica en desarrollo de aplicaciones con experiencia real en gestión empresarial y atención al cliente. Cada paso me ha enseñado la importancia de la adaptabilidad, el trabajo en equipo y la constancia. Este portfolio refleja mi compromiso por seguir creciendo y aportar valor en el mundo tecnológico.»</p>
+                <p style="margin-top:20px;font-weight:600;color:var(--primary);">— Mohamed Boukoba</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="socials">
+                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:mohamedboukoba00@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2025 Mohamed Boukoba · 634 266 079 · mohamedboukoba00@gmail.com</p>
+        </div>
+    </footer>
+</body>
+</html>
